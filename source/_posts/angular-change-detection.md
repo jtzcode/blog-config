@@ -14,13 +14,13 @@ tags:
 上次更新：**2019年11月05日**
 
 * * *
-**引言**
+### 引言
 
 使用过现代JavaScript框架的开发者，都应该熟悉绑定（binding）的概念。绑定通常有两个方向。一是由用户交互驱动，在浏览器的页面上发生了输入、点击操作，导致应用程序的状态发生改变，这些改变需要反映到程序中特定变量上。另一个方向是，JavaScript代码的业务逻辑中改变了程序的状态，比如通过API请求拿到新的数据，而这些状态也需要反映的页面的控件上。很多框架如AngularJS就实现了双向绑定机制。
 
 下面我们来看上述第二种绑定，即程序状态从业务代码到前端页面的传递过程。如果沃恩自己去实现应该怎么做呢？最直观的想法是：在恰当的时候对程序中的变量表达式进行求值，看看它是否与原来的值相同。如果不同，则把新的值写入与页面渲染相关的对象中。这里面检查变量表达式的值是否变化的过程就是所谓的变更检测（change detection）。Angular就是采用变更检测实现绑定的。下面我们具体来看。
 
-**基本原理**
+### 基本原理
 
 程序状态变化的来源有以下几种，首先是响应用户在UI上的操作，比如用户点击了一个按钮，改变了某个变量的值。然后是浏览器的异步事件，比如`setTimeout`的回调函数，改变了某个变量。最后是应用程序中的异步事件，比如API返回的Promise或者Observable对象在Resolve时，改变了变量的值。那么Angular是如何知道这些状态的改变呢？
 
@@ -35,7 +35,7 @@ tags:
 
 上述变更检测的策略是Angular的默认行为。事实上，我们可以通过`ChangeDetectionStrategy`对象来配置某个组件的变更检测策略。如果不指定，该对象的值是`Default`。在默认情况下，某个组件的变更检测触发，受其他组件的影响。那么如何让组件只关注自己的内部的变化呢？答案是设置`ChangeDetectionStrategy`的值为`OnPush`。
 
-**OnPush策略**
+### OnPush策略
 
 在OnPush策略下，只有两种情况可以触发当前组件的变更检测：
 
@@ -138,7 +138,7 @@ export class ChangeDetectionComponent implements OnInit {
 
 在这里，我们想在拿到的数字是偶数时，触发变更检测。为此，我们注入了一个类型为`ChangeDetectorRef`的Service，并调用了该Service的`markForCheck`方法。这个方法会手动触发当前组件的变更检测。从这个例子我们就能看到OnPush策略的灵活性。
 
-**生命周期钩子**
+### 生命周期钩子
 有时候，我们需要监控绑定属性的变化，这时就可以使用组件的生命周期钩子（hook）函数`ngOnChanges`以及`ngDoCheck`。
 
 OnChanges钩子会在组件的一个或多个绑定属性被改变后调用，我们可以在对应的`ngOnChanges`方法中拿到变化的属性，以及该属性的原值和新值，进而做相应处理。使用该钩子函数，需要让组件实现`OnChanges`接口。
@@ -156,7 +156,7 @@ DoCheck钩子函数会更细致一些，它可以利用Angular提供的差分器
 以上就是关于Angular变更检测的介绍，欢迎讨论。
 
 * * *
-**参考资料**
+### 参考资料
 * Angular权威教程
 * https://blog.angularindepth.com/everything-you-need-to-know-about-change-detection-in-angular-8006c51d206f
 * https://netbasal.com/a-comprehensive-guide-to-angular-onpush-change-detection-strategy-5bac493074a4

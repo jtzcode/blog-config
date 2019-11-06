@@ -15,7 +15,7 @@ tags:
 
 * * *
 
-**引言** 
+### 引言 
 
 Angular Service是一种实现代码抽象的方式。它可以帮助我们将业务逻辑从页面的呈现逻辑中分离出来，以保持Component功能的纯净，以及某些常见功能的重用。一些开发者认为Component应该只处理页面呈现以及用户交互方面的逻辑，其他的都应该抽象到service中，即所谓的[Lean Angular Component](https://blog.angularindepth.com/lean-angular-components-252bcb6ea6c1)思想。
 
@@ -24,7 +24,7 @@ Angular Service是一种实现代码抽象的方式。它可以帮助我们将�
 
 Angular的官方文档关于[单例Service](https://angular.io/guide/singleton-services)的话题有不错的讨论。除了这篇文章，本文还参考了其他讨论类似话题的文章，再结合了自己的理解。欢迎批评和讨论。
 
-**什么时候会有多个实例？**
+### 什么时候会有多个实例？
 
 总的来说在两种情况下，Angular会生成多实例的Service：
 
@@ -48,7 +48,7 @@ export class CustomerModule {}
 在说明Angular如何解决这个问题之前，我们先来看一个细节。Angular的根模块（通常是AppModule）在编译时，会沿着模块的树状结构收集，沿路上模块所声明的所有Provider，并将其合并到同一个数组中，统一提供一个Injector用于依赖注入。也就是说，虽然Angular的模块依赖关系是一棵树，但最终会被合并成一个模块，且Injector的结构是扁平化的。想了解更多这方面的内容，可以参考[这里](https://blog.angularindepth.com/avoiding-common-confusions-with-modules-in-angular-ada070e6891f)。
 然而，虽然Injector是同一个，但采用在Provider数组中声明Service并导入模块的方式使用Service，仍然是多实例的。就上面的例子来说，在某个Module中使用依赖注入时，每次遇到类型为`CustomerModule`的模块导入，就调用统一的Injector实例化一个`CustomerService`的对象。
 
-**如何解决？**
+### 如何解决？
 
 Angular提供了三种方法解决这个问题：
 
@@ -134,7 +134,7 @@ static forRoot(config: UserServiceConfig): ModuleWithProviders {
 关于Service单例的问题，Angular官网文档的讨论已经比较全面了，如果要深入了解Service依赖注入以及单例的控制机制还需要参考源代码。
 
 * * *
-**参考资料**
+### 参考资料
 
 * https://blog.angularindepth.com/avoiding-common-confusions-with-modules-in-angular-ada070e6891f
 

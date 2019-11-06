@@ -18,7 +18,7 @@ tags:
 
 我认为高阶函数是很有用的。事实上，我觉得它是JavaScript这门语言最重要的特性之一。但我们在解释它为何重要之前，先来看看什么是高阶函数。为了解释这个概念，我们从函数变量（functions as variables）开始。
 
-**作为一等公民的函数**
+### 作为一等公民的函数
 
 在JavaScript中，我们至少有三种方式定义一个函数（注释1）。首先我们可以写一个函数声明（function declaration），例如：
 ```javascript
@@ -139,7 +139,7 @@ const wrapWithDiv = createListWreapperFunction('div');
 总的来说，使用上述的一等函数看起来不错，但是这与高阶函数有什么关系呢？下面我们来看高阶函数的定义。
 
 
-**什么是高阶函数？**
+### 什么是高阶函数？
 
 高阶函数是：
 
@@ -315,7 +315,7 @@ console.log(typeaheadMatches);
 
 * * *
 
-**注释**：
+### 注释
 1、定义一个函数至少有三种方式，我们另找时间讨论这个话题。
 2、这不总是正确的。三种定义函数的方式在实践中都有微妙的区别。这种区别在于神奇的this关键字的上下文以及trace栈中的标签。
 3、 维基百科贡献者（2019）， 'First–class citizen',Wikipedia, the free encyclopedia, viewed 19 June 2019, https://en.wikipedia.org/wiki/First-class_citizen.
