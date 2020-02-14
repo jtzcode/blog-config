@@ -1,6 +1,8 @@
 ---
 title: Angular Service 单例问题探究
 date: 2019-10-15 10:26:37
+categories:
+    - 技术
 tags:
     - Tech
     - Web Front-end

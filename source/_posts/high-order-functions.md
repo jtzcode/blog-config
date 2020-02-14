@@ -1,6 +1,8 @@
 ---
 title: 什么是高阶函数？你为什么需要关注它？（译）
 date: 2019-09-25 14:58:43
+categories:
+    - 技术
 tags:
     - Tech
     - Web Front-end

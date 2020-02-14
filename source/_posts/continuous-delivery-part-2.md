@@ -1,6 +1,8 @@
 ---
 title: 《持续交付》学习笔记（二）
 date: 2019-12-31 14:53:28
+categories:
+    - 技术
 tags: 
     - 持续交付
     - DevOps

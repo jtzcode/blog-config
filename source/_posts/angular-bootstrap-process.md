@@ -1,6 +1,8 @@
 ---
 title: 日拱一卒系列（一）—— Angular启动过程简析
 date: 2020-01-10 16:13:15
+categories:
+    - 技术
 tags:
     - Tech
     - Web Front-end

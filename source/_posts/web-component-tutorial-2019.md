@@ -1,6 +1,8 @@
 ---
 title: 2019年 Web Component 入门教程（译）
 date: 2019-07-10 20:46:51
+categories:
+    - 技术
 tags:
     - Tech
     - Web Front-end

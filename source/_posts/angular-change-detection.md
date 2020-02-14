@@ -1,6 +1,8 @@
 ---
 title: Angular 变更检测探究
 date: 2019-11-05 10:26:37
+categories:
+    - 技术
 tags:
     - Tech
     - Web Front-end
