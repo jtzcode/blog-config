@@ -21,4 +21,20 @@ tags:
 一个容器其实就是**对应不同类型资源的命名空间的集合**，这个集合构成一个系统视图，也可以将容器视为一种轻量级的虚拟机。想要理解容器，首先要理解Linux命名空间。主流的容器技术如Docker，就是基于Linux命名空间实现的。
 
 ## Linux命名空间
-Linux系统在默认情况下只有一个命名空间，开发者可以创建额外的命名空间来组织不同的资源，形成不同的视图。
+Linux系统在默认情况下只有一个命名空间，开发者可以创建额外的命名空间来组织不同的资源，形成不同的视图。这里所说的资源指的是操作系统相关的信息（文件、进程、主机等），具体类别如下：
+- UTS
+- User
+- Process ID
+- Inter-Process Communication（IPC)
+- Network
+- Mount
+
+每个进程可以属于不同类型的多个命名空间，表示该进程可以看到所在命名空间定义的系统资源。比如，进程A处于Network命名空间N中，那么A只能看到N内部的网络接口。进程A还可以同时属于UTS命名空间U，这意味着A只能看见U定义的主机名和域名信息。
+
+每个容器都有一组命名空间，定义各类系统资源的访问范围，身处其中的进程就只能访问容器内部的资源，这就是容器实现的资源隔离。
+## 参考资料
+- Kubernetes In Action
+- 深入Linux内核
+- https://medium.com/@teddyking/linux-namespaces-850489d3ccf
+- https://medium.com/@teddyking/namespaces-in-go-basics-e3f0fc1ff69a
+- https://medium.com/@teddyking/namespaces-in-go-user-a54ef9476f2a
