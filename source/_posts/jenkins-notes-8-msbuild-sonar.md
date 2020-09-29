@@ -13,7 +13,7 @@ tags:
 ## 问题
 最近工作中有这样的需求，需要针对MSBuild的项目，在pipeline中使用SonarQube进行静态代码分析。这就需要用到 [SonarScanner For MSBuild](https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-msbuild/) 这个版本的扫描工具。如果直接在Jenkins的虚拟机节点上运行Build和Sonar Scan，没有问题。不过我们的Build是在Docker container中运行的，pipeline会启动一个windows container，其中包含了MSBuild和msbuld-sonarscanner等工具。在Sonar阶段就会遇到以下问题：
 
-![error](error.png)
+![error](errors.png)
 <!--more-->
 从Log中的`possible causes`可以看出，原因可能有四种。这里要补充一下MSBuild SonarScanner的一些背景，这个工具分三步执行：`Begin -> Build -> End`。首先运行sonar scanner的`begin`阶段，做一些预处理的工作，生成必要的临时目录，读取配置文件。然后进入项目的Build阶段，此时会调用MSBuild工具去Build某个solution或者project。最后是Sonar Scanner的`End`阶段，这里会真正扫描并分析代码。
 
@@ -37,7 +37,7 @@ $ docker rm -f 48d4XXX
 
 在本地执行sonar scan的Log印证了我的猜想：
 
-![sonar](sonar.png)
+![sonar](sonars.png)
 Scanner在进行预处理时会**将跟SonarQube相关的targets文件写到当前User的Local目录下**，而这些目录是没有被Docker装载的，且MSBbuild在执行时会读取，并运行相应的task：
 
 ```shell
