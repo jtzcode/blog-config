@@ -52,5 +52,8 @@ SonarQubeImportBeforeInfo:
 ```
 而如果在全新的container运行MSBuild，就不会出现上述的Log，紧接着在End阶段就会出错。
 ## 解决
+找到了原因后，解决方案就很自然：修改pipeline的模板，使得MSBuild Sonar Scan的`begin`和`build`阶段在同一个container内执行。
+
+当然还有另一个思路，就是在每次启动新的container时，都把scanner用到的所有路径通过`-v`指令装载，不过这很依赖于Sonar Scanner的实现，不是一个扩展性好的做法。
 ## 参考资料
 - https://docs.sonarqube.org/latest/analysis/scan/sonarscanner-for-msbuild/
