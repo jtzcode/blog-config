@@ -36,6 +36,13 @@ tags:
 那么浏览器中的应用能知道用户当前的系统键盘布局吗？答案是：**目前还不能**。因为这需要浏览器通过系统API得到需要的信息，而浏览器还没有提供JavaScript接口。目前只有个`getLayoutMap`接口[6]，且还没有被所有主流浏览器支持。它返回一个promise，并在promise被resolve时拿到一个**从按键信息到字符信息的map**。这样只要通过事件对象拿到按键信息（比如`code`属性），就可以得到它在当前系统键盘布局下的输出字符，从而可以**反推**目前系统的键盘布局信息。当然，如此获得键盘布局信息还是略显笨拙且容易出错，还是期待未来标准中对键盘信息有更为完善的支持。
 
 ## 输入法事件
+
+对于中、日、韩等东亚语言来说，输入法（Input Method Editor）是必不可少的输入工具。浏览器对输入法需要特别支持，原因在于使用输入法时有一个**组字**（Composition）的过程。这一点我们很熟悉了，比如用中文输入法打出“你好”两个字，你需要先输入“nihao”的拼音，然后从候选框中选择你要输入的字或者词。对于浏览器来说，最终填入输入框的是“你好”两个字，但是前面输入拼音的过程也需要精确地监控，以满足可能的业务需求。
+
+浏览器中与输入法相关的常用事件[6]有，`compositionstart`（开始组字），`compositionupdate`（更新组字），`compositionend`（结束组字）等。有了这些事件，应用程序可以知道用户是否在使用输入法输入，目前到了组字的哪个阶段，以及是否提交了组字结果。对于日文输入法来说，还有分段组字的支持，可以对不同词语调出候选框进行选择。此外，`input`事件有时也很有用，可以根据input事件的**不同类型**[7]，来获取当前的输入内容或者进行其他操作。
+
+需要注意的是，不同浏览器对各类输入法事件的支持并不一致，W3C组织制定的相应标准也有多个版本（Level1，Level2...），而不同浏览器厂商对标准的实现有出入，涉及触发**事件的类型**、**事件的时序**以及**兼容性**等。这就需要开发者了解多种浏览器的实现，避免出现与输入相关的bug。
+
 ## 组合键
 ## 总结
 
@@ -44,5 +51,6 @@ tags:
 - [2] Keypress Event: https://developer.mozilla.org/en-US/docs/Web/API/Document/keypress_event
 - [3] Keyboard Layout: http://taggedwiki.zubiaga.org/new_content/b996676d2852e3818a60c2655ac10e73#:~:text=A%20keyboard%20layout%20is%20any%20specific%20mechanical%2C%20visual%2C,layout%3A%20The%20placements%20and%20keys%20of%20a%20keyboard
 - [4] Code property: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code
-- [5] Code values: https://www.w3.org/TR/uievents-code/
-- [6] Keyboard Layout Map: https://developer.mozilla.org/en-US/docs/Web/API/Keyboard/getLayoutMap
+- [5] Keyboard Layout Map: https://developer.mozilla.org/en-US/docs/Web/API/Keyboard/getLayoutMap
+- [6] Composition Event: https://developer.mozilla.org/en-US/docs/Web/API/CompositionEvent
+- [7] Input Type: https://www.w3.org/TR/input-events-1/
