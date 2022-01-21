@@ -25,14 +25,31 @@ keydown<sup>[1]</sup>和keyup事件通常会成对出现（也有例外），它
 
 总的来说，使用keyCode要时刻考虑浏览器、语言及平台的兼容性，并且keyCode的值不易记忆，给开发和调试带来难度，因此对于新的应用不推荐使用。那么怎么拿到准确的键值呢？答案是**使用key和code属性**。
 
-### key和code属性
+### key属性
+简单来说，key属性<sup>[3]</sup>告诉你的按键产生了什么**值**，这个属性名稍有些迷惑性（叫“键”，实际是“值”）。比如在一个英文键盘上，你按“A”键，那对应的key event中key属性的值就是“a”。
+
+需要注意的是key的值是**最终的**输出值，也就是它也考虑了SHIFT等功能键的效果、系统的locale以及键盘的layout等信息。比如，如果按的是**SHIFT+A**组合，那么key的属性值是大写的“**A**"；在韩文输入法下，按右边的CTRL键，其实是韩语输入的Hanja key（用于输入汉字），对应key的属性值为“**HanjaMode**”（而不是CTRL本身）；在日语的106/109键盘上，按特殊的Kana/罗马字转换键，会产生“**KanaMode**”的key属性值。
+
+注意，产生的这个key值如果是一个可打印的字符（比如字母、数字、符号等），那么会进一步出发`input`等事件，将字符输入某个文本控件内。如果只是功能键（比如Hanja key）则不会有`input`事件产生。因此，有时我们在拦截用户输入时`input`事件不一定来得及，并不是每次按键都产生实际输入。
+
+如果所在的平台和浏览器无法识别某个键盘的按键，那么按键事件依然会产生，只不过key属性的值为“**Unidentified**”。在处理按键事件时要时刻牢记三个影响因素：**键盘布局、操作系统和浏览器**。还有一种特殊的key称为Dead Key<sup>[5]</sup>，在输入某些欧洲语言的accent字符时，需要先按一次口音符号\`，再按字母键（比如在法语中的**à=\`+a**），这里的口音符号就会产生“**Dead**”的key值，而a键的key属性为最终的字符`à`。
+
+### code属性
 
 
 ### keypress事件
 
 ### 组合键相关属性
 
+### 其他属性
+- charCode, which
+- location
+- repeated
+
 ## 参考阅读
 
 - [1] [Keydown Event](https://developer.mozilla.org/en-US/docs/Web/API/Document/keydown_event)
 - [2] [KeyCode Property](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)
+- [3] [Key property](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key)
+- [4] [Code property](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code)
+- [5] [Dead Key](https://en.wikipedia.org/wiki/Dead_key#/)
