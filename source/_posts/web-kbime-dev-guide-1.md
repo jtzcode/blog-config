@@ -56,7 +56,7 @@ tags:
 ## 总结
 本文梳理了Web浏览器中键盘和输入法功能的要点，可以让你对基本的概念有一些感性的印象，从下篇文章开始，我们开始逐一探讨具体的开发技术。欢迎关注和讨论。
 
-## 参考资料
+## 参考阅读
 - [1] [Keyboard Event](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent)
 - [2] [Keypress Event](https://developer.mozilla.org/en-US/docs/Web/API/Document/keypress_event)
 - [3] [Keyboard Layout](http://taggedwiki.zubiaga.org/new_content/b996676d2852e3818a60c2655ac10e73#:~:text=A%20keyboard%20layout%20is%20any%20specific%20mechanical%2C%20visual%2C,layout%3A%20The%20placements%20and%20keys%20of%20a%20keyboard)
