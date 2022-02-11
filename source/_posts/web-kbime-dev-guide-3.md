@@ -31,7 +31,14 @@ tags:
 
 在输入过程的任何时候如果输入回车键，就会提交输入，`compositionend`事件也会触发。对于日文输入法，就是提交当前选中的字符；而对于中文输入法，则会提交组字框中的拼音。在使用输入法的过程中，也可以取消输入，一般有两种方式：一是用户的操作，比如使用鼠标单击页面空白处，就会终止当前输入；二是在`compositionstart`之后，通过`preventDefault`方法阻止后续事件发生<sup>[5]</sup>。但无论何种情况，`compositionend`事件都会触发。
 
-事件序列、isComposing
+通常情况下，`compositionstart`会开启一个组字的会话（session），然后会有一个或者多个`compositionupdate`事件描述输入的过程，最后随着`compositionend`事件提交输入结果，结束组字会话。在这期间，每次`compositionupdate`事件触发，都意味着DOM马上要更新为最新的字符，DOM更新结束后还会紧跟着一个`input`事件，表示当前字符更新成功。不过还是那句话，此为标准中定义的事件序列，并不是所有浏览器都如此实现。
+
+在一个会话中，每一次非打印字符的输入都被视为`Process`键。比如在日文输入法中使用空格来调出候选列表，并选择候选字词；在中文输入法中使用回车来提交当前输入；在韩文输入法中使用Hanja键来切换到汉字输入等等。这些Process键的keydown或者keyup事件中，`isComposing`属性的值都是`true`，表示输入未结束，这对应用程序来说可能是个有用的属性。随着会话结束， 在compositionend事件触发以后，从最后一个Process键（比如回车键）的keyup事件开始，`isComposing`就变为`false`。
+
+值得一提的是，在某些输入法中有`selection`的概念，即输入过程支持**分段组字**。如下图，这在拼写的是“地”这个字符，候选列表里有多个选项。此时使用左右方向键可以切换拼写的目标（即一个selection），比如切换到右边的“安气”，具体几个字一组与输入的语言相关，由输入法自行决定。同时，在浏览器中会有`compositionupdate`事件产生。
+
+![japanese](ja.png)
+<center><div style="font-size:16px;">日语输入法分段组字</div></center>
 ## input事件
 ## 总结
 
