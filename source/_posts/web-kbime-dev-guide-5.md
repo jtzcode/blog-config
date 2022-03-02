@@ -52,6 +52,11 @@ function validate(evt) {
 
 针对这种情况，我们在开发时可以多打一些log，观察事件在运行时的实际顺序，便于发现问题。直接在浏览器的DevTools种调试可以，不过如果断点打在事件处理程序中，停留事件过长可能导致事件失效。另外，对一些移动端的浏览器，也没有DevTools可用。
 
+![debug-event](debug-event.png)
+<center><div style="font-size:16px;">断点失效</div></center>
+
+如上图，在同时在composition和keydown事件处理程序加断点，在keydown处停留后（16行），后续的断点（7行）没有进入。
+
 ## 移动端调试方法
 
 ## 掌握多语言的知识
