@@ -14,7 +14,7 @@ tags:
 
 ## 不要依赖某一种事件
 从前面几篇文章可以看出，浏览器提供的、处理与用户输入相关的事件实在不少，如keydown/keypress、input以及composition等等。开发者不仅需要了解每种事件的定义和包含的信息，还要掌握各类事件**触发的场景**。如果有时多个事件同时触发，该如何取舍？如果有时期待的事件没有触发，有什么替代方案？这都是需要考虑的问题。
-
+<!--more-->
 举个例子，在一些平台上（比如iOS Safari，Ubuntu Firefox，Android Chrome等），且使用输入法时，**有时**并不产生composition\*事件，而是使用`input`事件。这里的“有时”通常是指输入**特殊符号**，如中文的`￥`，`？`，`【`，`》`等。
 
 这里的例子是要提醒我们，**不要依赖单一的事件**。虽然composition相关事件天然是为了输入法而设计，但并不意味着所有浏览器都会触发。同理，keypress事件也经常被用来处理符号的输入，但也不保证一定存在。脑子里时刻绷着这根弦，可以避免许多因为测试不到位而暴露的严重bug（用户完全无法输入了）！
@@ -58,10 +58,27 @@ function validate(evt) {
 如上图，在同时在composition和keydown事件处理程序加断点，在keydown处停留后（16行），后续的断点（7行）没有进入。
 
 ## 移动端调试方法
+其实针对移动端，还有其他调试的方法。如果移动设备浏览器无法查看console的log，可以使用一些第三方的库来截获log的输出，并以浮动UI的方式显示在页面上，供开发者查看，如腾讯开源的vConsoles<sup>[3]</sup>。
+
+我们也可以使用一些远程调试工具，将测试移动设备连接到PC上，开启设备的开发者选项，并启用USB调试功能，然后在PC的浏览器中通过DevTools调试页面。
+
+- 对于Android设备，以Chrome为例，可以参考官方文档<sup>[4]</sup>配置远程调试。注意，调试使用的USB线要具有**传输功能**，有的Type-C线只能给设备供电，却无法激活USB的调试功能。如果是三星的设备，可能还需要装驱动程序，可视具体情况查阅相关资料。Firefox有类似的调试功能，这里不赘述。
+- 对于iOS设备，以Safari为例，可以参考这个文档<sup>[5]</sup>配置远程调试。推荐使用一台Mac机调试，注意如果Safari的菜单栏没有**开发**（Develop）选项，需要在设置中打开。如果机器上预装的Safari不好用，也可以尝试Safari的技术预览版<sup>[6]</sup>，它提供了更强大的开发者选项。
 
 ## 掌握多语言的知识
+最后一点实战技巧就是语言知识了。有时候自己写的代码总出bug，主要是因为对**相关语言的输入过程**了解不够，因此忽略了很多边缘case。当然，让每个工程师掌握多种语言知识是要求过高了，但针对键盘和输入法应用的开发者来说，有意识地积累这方面知识，对提供工作效率，写出高质量代码益处良多。
+
+举个例子，汉字是由偏旁部首组成的，但如果我们用拼音输入，是整个字一起输进去的，而不是按偏旁部首的顺序逐个部分输入（像五笔输入法一样）。然而，韩文字符就不同，它需要**通过一些类似偏旁的组件组合**输入：字符“조”就是由“ㅈ”和“ㅗ”拼出的，在键盘上要依次输入W和H键。而且在删除时，也要先由“조”变为“ㅈ”，再完全删除，需要按两次退格键。
+
+像这种情况如果开发者不清楚，那么在设计测试用例时，也无法保证好的覆盖了。
 
 ## 总结
+这一讲我分享了一些开发中常见的、有点棘手的问题或者注意事项，希望对你有所帮助。从下一讲开始，我们通过一个在线输入法的小项目来实践一下。
+
 ## 参考阅读
 [1] [Event.preventDefault()](https://developer.mozilla.org/en-US/docs/Web/API/Event/preventDefault)
 [2] [Event.stopPropagation()](https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation)
+[3] [Tecent vConsole](https://github.com/Tencent/vConsole)
+[4] [Remote Debugging for Android Chrome](https://developer.chrome.com/docs/devtools/remote-debugging/)
+[5] [Remote Debugging for iOS Safari](https://www.busbud.com/blog/debug-ios-safari-mac/)
+[6] [Safari Technology Preview](https://developer.apple.com/safari/technology-preview/)
