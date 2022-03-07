@@ -153,7 +153,10 @@ const requestIMECandidate = function(req, res, callback) {
 };
 ```
 ## 总结
-以上实现只是覆盖了基本的功能，搭建出了基本的UI和事件处理框架。下一篇文章我会关注其中的一些细节，比如输入法功能键、组合键的处理，以及其他注意事项。
+以上实现只是覆盖了基本的功能，搭建出了基本的UI和事件处理框架。下一篇文章我会关注其中的一些细节，比如输入法功能键、组合键的处理，以及其他注意事项。最后的实现结果预览如下：
+
+![demo](demo.png)
+<center><div style="font-size:16px;">在线输入法Demo</div></center>
 
 ## 参考阅读
 [1] [Google Input Tools](https://www.google.com/inputtools/try/)
