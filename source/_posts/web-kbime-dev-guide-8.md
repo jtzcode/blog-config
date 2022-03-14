@@ -90,7 +90,7 @@ chrome.debugger.sendCommand({ tabId: tabs[0].id }, "Input.dispatchKeyEvent", key
 
 重新加载插件后，打开一个页面，将焦点放入输入框，然后通过插件发送命令，就可以得到如下事件：
 
-![key](key.png)
+![key](key-event.png)
 <center><div style="font-size:16px;">模拟按键事件</div></center>
 
 同时在浏览器页面中，也可以**看到实际的按键输出**。我们注意到，这里的`isTrusted`属性值为`true`。通过这种方法，我们就可以在Chrome中实现按键的模拟和自动化输入了。
